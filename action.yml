@@ -1,0 +1,36 @@
+name: Github Scan Image
+description: Scan a Docker image stored in AWS ECR and fail if vulnerabilities are found.
+inputs:
+  repository:
+    description: ECR repository, eg myorg/myimage.
+    required: true
+  tag:
+    description: Image tag to scan.
+    required: true
+  fail_threshold:
+    description: >
+      Fail if any vulnerabilities equal to or over this severity level are detected. Valid values: critical, high, medium, low, informational.
+    default: medium
+  ignore_list:
+    description: List of CVE IDs to ignore in the vulnerability findings.
+outputs:
+  critical:
+    description: Number of critical vulnerabilities detected.
+  high:
+    description: Number of high vulnerabilities detected.
+  medium:
+    description: Number of medium vulnerabilities detected.
+  low:
+    description: Number of low vulnerabilities detected.
+  informational:
+    description: Number of informational vulnerabilities detected.
+  unknown:
+    description: Number of unknown severity vulnerabilities detected.
+  total:
+    description: Total number of vulnerabilities detected.
+runs:
+  using: "docker"
+  image: "Dockerfile"
+branding:
+  icon: "camera"
+  color: "orange"
